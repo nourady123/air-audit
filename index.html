@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#8f1025">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Air Audit">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Air Audit Companion</title>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div><p class="eyebrow">OFFLINE FIELD TOOL</p><h1>Air Audit Companion</h1></div>
+    <button id="installBtn" class="ghost hidden" type="button">Install</button>
+  </header>
+
+  <main>
+    <section id="home" class="view active">
+      <article class="hero card">
+        <div class="hero-row"><div><p class="muted">Current audit</p><h2 id="routeTitle">New flight audit</h2></div><div class="score" id="score">0%</div></div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <p id="progressText" class="muted">0 requirements completed</p>
+      </article>
+
+      <article class="card">
+        <h3>Flight details</h3>
+        <div class="grid2">
+          <label>Airline<input data-field="airline" placeholder="Airline"></label>
+          <label>Flight number<input data-field="flightNumber" placeholder="e.g. G9123" autocapitalize="characters"></label>
+          <label>Origin<input data-field="origin" placeholder="e.g. SHJ" autocapitalize="characters"></label>
+          <label>Destination<input data-field="destination" placeholder="e.g. CAI" autocapitalize="characters"></label>
+          <label>Flight date<input data-field="flightDate" type="date"></label>
+          <label>Seat<input data-field="seat" placeholder="e.g. 12A" autocapitalize="characters"></label>
+          <label class="span2">6-character PNR<input data-field="pnr" maxlength="6" placeholder="ABC123" autocapitalize="characters"></label>
+        </div>
+      </article>
+
+      <article class="card warning">
+        <h3>Critical reminders</h3>
+        <ul><li>Submit the audit immediately after the flight and within 24 hours.</li><li>Do not photograph immigration, security or police areas.</li><li>Do not disclose auditor status.</li><li>Safety and local law always take priority.</li></ul>
+      </article>
+
+      <article class="card">
+        <h3>Finish safely</h3>
+        <button id="missingBtn" class="primary full" type="button">Show what is still missing</button>
+        <button id="exportBtn" class="secondary full" type="button">Export complete audit record</button>
+        <button id="backupBtn" class="secondary full" type="button">Download backup</button>
+        <label class="file-label">Restore backup<input id="restoreInput" type="file" accept="application/json"></label>
+      </article>
+    </section>
+
+    <section id="checklist" class="view">
+      <div class="section-heading"><div><p class="eyebrow">PROCESS</p><h2>Audit checklist</h2></div><button id="expandAll" class="ghost" type="button">Expand all</button></div>
+      <div id="sections"></div>
+    </section>
+
+    <section id="timeline" class="view">
+      <div class="section-heading"><div><p class="eyebrow">ONE TAP</p><h2>Timestamp log</h2></div></div>
+      <article class="card">
+        <div id="quickTimes" class="quick-grid"></div>
+        <label>Custom event<input id="customEvent" placeholder="e.g. Boarding started"></label>
+        <label>Note<input id="customNote" placeholder="Optional"></label>
+        <button id="addTimeBtn" class="primary full" type="button">Stamp current time</button>
+      </article>
+      <div id="timelineList"></div>
+    </section>
+
+    <section id="people" class="view">
+      <div class="section-heading"><div><p class="eyebrow">NAMES & DETAILS</p><h2>Staff log</h2></div></div>
+      <article class="card">
+        <label>Role<input id="staffRole" placeholder="Check-in / gate / cabin crew"></label>
+        <label>Name or objective description<input id="staffName" placeholder="Name, or factual description if unavailable"></label>
+        <label>Location<input id="staffLocation" placeholder="Counter, gate, cabin area"></label>
+        <label>Observation<textarea id="staffNote" rows="3" placeholder="What happened"></textarea></label>
+        <button id="addStaffBtn" class="primary full" type="button">Add staff record</button>
+      </article>
+      <div id="staffList"></div>
+    </section>
+
+    <section id="reference" class="view">
+      <div class="section-heading"><div><p class="eyebrow">QUICK ACCESS</p><h2>Reference</h2></div></div>
+      <article class="card"><h3>UAE contact centre</h3><div class="contact"><span>Within the UAE</span><a href="tel:60066">60066</a></div><div class="contact"><span>Outside the UAE</span><a href="tel:+97160066">+971 60066</a></div><div class="contact"><span>Timings</span><strong>24/7</strong></div></article>
+      <article class="card"><h3>Live-agent flow</h3><ol><li>Begin with a genuine service request.</li><li>Follow the chatbot questions.</li><li>If self-service is offered, use one request that requires manual help.</li><li>Provide the correct 6-character PNR, not a PIN.</li><li>When asked whether to connect to a live agent, reply “Yes”.</li></ol></article>
+      <article class="card"><h3>Reimbursement reference</h3><p>Keep the economy ticket showing the price and the meal receipt or requested photographic evidence. Check onboard meal reimbursement against the AED 50 ceiling.</p><p class="muted">Hotel, visa, transport, excess baggage, upgrades, ticket changes and unrelated purchases are not included in this field checklist.</p></article>
+      <article class="card"><h3>Evidence discipline</h3><ul><li>Use the iPhone Camera app for photos.</li><li>Reference filenames or photo numbers in each checklist note.</li><li>Attach evidence to every negative observation.</li><li>Avoid passengers and direct facial images where possible.</li></ul></article>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Main navigation">
+    <button data-view="home" class="active" type="button"><span>⌂</span>Home</button>
+    <button data-view="checklist" type="button"><span>☑</span>Checklist</button>
+    <button data-view="timeline" type="button"><span>◷</span>Timeline</button>
+    <button data-view="people" type="button"><span>♙</span>People</button>
+    <button data-view="reference" type="button"><span>ⓘ</span>Reference</button>
+  </nav>
+</div>
+<dialog id="missingDialog"><div class="dialog-head"><h2>Still missing</h2><button id="closeDialog" type="button" aria-label="Close">×</button></div><div id="missingList"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
